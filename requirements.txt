@@ -8,4 +8,4 @@ langchain-pinecone
 langchain_community
 langchain_openai
 langchain_experimental
--e .
+-e . # to create an egg info file means the project is setup as my local package
