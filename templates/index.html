@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Medical ChatBot</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+  <div class="chat-container">
+    <div class="chat-header">Medical ChatBot</div>
+    <div class="chat-box" id="chat-box">
+      <div class="message bot">Hello! I'm your medical assistant. I can answer questions based on the medical book content. How can I help you today?</div>
+    </div>
+    <div class="chat-input">
+      <input type="text" id="user-input" placeholder="Type your medical question..." />
+      <button onclick="sendMessage()">Send</button>
+    </div>
+  </div>
+
+  <script>
+    async function sendMessage() {
+      const input = document.getElementById("user-input");
+      const message = input.value.trim();
+      
+      if (message) {
+        const chatBox = document.getElementById("chat-box");
+        
+        // Add user message
+        const userMsg = document.createElement("div");
+        userMsg.className = "message user";
+        userMsg.textContent = message;
+        chatBox.appendChild(userMsg);
+        
+        // Clear input
+        input.value = "";
+        
+        // Add loading message
+        const loadingMsg = document.createElement("div");
+        loadingMsg.className = "message bot";
+        loadingMsg.textContent = "Thinking...";
+        chatBox.appendChild(loadingMsg);
+        
+        try {
+          // Send message to backend
+          const response = await fetch('/chat', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ message: message })
+          });
+          
+          const data = await response.json();
+          
+          // Remove loading message
+          chatBox.removeChild(loadingMsg);
+          
+          // Add bot response
+          const botReply = document.createElement("div");
+          botReply.className = "message bot";
+          botReply.textContent = data.response;
+          chatBox.appendChild(botReply);
+        } catch (error) {
+          // Remove loading message
+          chatBox.removeChild(loadingMsg);
+          
+          // Add error message
+          const errorMsg = document.createElement("div");
+          errorMsg.className = "message bot error";
+          errorMsg.textContent = "Sorry, there was an error processing your request.";
+          chatBox.appendChild(errorMsg);
+        }
+        
+        // Scroll to bottom
+        chatBox.scrollTop = chatBox.scrollHeight;
+      }
+    }
+
+    // Allow sending message with Enter key
+    document.getElementById("user-input").addEventListener("keypress", function(event) {
+      if (event.key === "Enter") {
+        sendMessage();
+      }
+    });
+  </script>
+</body>
+</html>

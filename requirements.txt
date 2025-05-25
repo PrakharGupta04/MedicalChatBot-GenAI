@@ -1,11 +1,9 @@
-sentence-transformers==2.2.2
-langchain 
-flask
-pypdf
-python-dotenv
-pinecone[grpc]
-langchain-pinecone
-langchain_community
-langchain_openai
-langchain_experimental
--e . # to create an egg info file means the project is setup as my local package
+flask==3.0.2
+langchain==0.1.12
+langchain-community>=0.0.28
+langchain-pinecone>=0.0.1
+pinecone-client[grpc]>=3.0.2
+python-dotenv==1.0.1
+sentence-transformers==2.5.1
+pypdf==4.1.0
+protobuf>=4.21.0
