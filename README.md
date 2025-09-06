@@ -7,17 +7,17 @@ The knowledge base was created from the Gale Encyclopedia of Medicine (Vol. 1). 
 
 **Features**
 
-Answers medical questions based on reference text.
+-> Answers medical questions based on reference text.
 
-Uses a RAG pipeline to minimize hallucinations.
+-> Uses a RAG pipeline to minimize hallucinations.
 
-Stores embeddings in Pinecone for efficient semantic search.
+-> Stores embeddings in Pinecone for efficient semantic search.
 
-Flask-based web application for user interaction.
+-> Flask-based web application for user interaction.
 
-Supports local inference of models through Ollama.
+-> Supports local inference of models through Ollama.
 
-Modular design allows adding more documents to the knowledge base.
+-> Modular design allows adding more documents to the knowledge base.
 
 **System Architecture**
 
